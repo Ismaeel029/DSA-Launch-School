@@ -1,0 +1,62 @@
+"use strict"
+
+// Implement a function `findRange` that takes in an array of
+// integers sorted in ascending order. The function should
+// return an array containing the starting and ending
+// positions of the number 3 within the array. If the number 3
+// is not found, return [-1, -1].
+
+// Example:
+// Input: nums = [1, 2, 3, 3, 3, 3, 3, 4, 5]
+// Output: [2, 6]
+
+// Example:
+// Input: nums = [1, 2, 5, 5, 6, 9, 10]
+// Output: [-1, -1]
+
+function findRangeOfThrees(arr){
+    return [findLeftMostIndex(arr), findRightMostIndex(arr)];
+}
+
+function findLeftMostIndex(arr){
+    let left = 0;
+    let right = arr.length - 1;
+    let leftmost = -1;
+
+    while(left <= right){
+        let mid = Math.floor((left+right)/2);
+
+        if(arr[mid]===3){
+            leftmost = mid;
+            right = mid-1;
+        }else if(arr[mid] < 3){
+            left = mid+1;
+        }else{
+            right = mid-1;
+        }
+    }
+    return leftmost;
+}
+
+function findRightMostIndex(arr){
+    let left = 0;
+    let right = arr.length - 1;
+    let rightmost = -1;
+
+    while(left <= right){
+        let mid = Math.floor((left+right)/2);
+
+        if(arr[mid] === 3){
+            rightmost = mid;
+            left = mid+1;
+        }else if(arr[mid] < 3){
+            left = mid+1;
+        }else{
+            right = mid-1;
+        }
+    }
+    return rightmost;
+}
+
+console.log(findRangeOfThrees([1, 2, 3, 3, 3, 3, 3, 4, 5]));
+console.log(findRangeOfThrees([1, 2, 5, 5, 6, 9, 10]));
